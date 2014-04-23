@@ -12,7 +12,8 @@ SET(CMAKE_C_FLAGS "-D_BSD_SOURCE -std=c99 -Wall -W -O2")
 INCLUDE_DIRECTORIES(./)
 
 # Set the source file
-SET(SNAKENCURSES_SRC main.c)
+SET(SNAKENCURSES_SRC animal_list.c
+		     main.c)
 
 ADD_EXECUTABLE(kernel-llist ${SNAKENCURSES_SRC})
 
