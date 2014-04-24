@@ -4,6 +4,9 @@
 #include <stdint.h>
 #include "dllist.h"
 
+#define MAX_WIDTH 1280
+#define MAX_HEIGHT 720
+
 #define MAX_ANIMALS 4
 #define MAX_MOVES 20
 #define MAX_ATTACKS 10
@@ -44,6 +47,7 @@ typedef struct animal_list
 
 void animal_list__init(animal_list_t *);
 
+void populate_animal(animal_t *);
 animal_list_t *animal_list__new(void);
 
 void animal_list__add(animal_list_t *, animal_list_t *);
