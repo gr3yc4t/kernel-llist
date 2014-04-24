@@ -13,6 +13,7 @@ INCLUDE_DIRECTORIES(./)
 
 # Set the source file
 SET(SNAKENCURSES_SRC animal_list.c
+		     utils.c
 		     main.c)
 
 ADD_EXECUTABLE(kernel-llist ${SNAKENCURSES_SRC})
