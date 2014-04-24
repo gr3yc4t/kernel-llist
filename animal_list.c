@@ -1,9 +1,10 @@
+#include <stdlib.h>
 #include "animal_list.h"
 
-void animal_list__init(animal_list_t *list)
+void animal_list__init(animal_list_t *animal_list)
 {
-    list->animal = NULL;
-    INIT_LIST_HEAD(&list->entries);
+    animal_list->animal = NULL;
+    INIT_LIST_HEAD(&animal_list->list);
 }
 
 animal_list_t *animal_list__new()
@@ -16,17 +17,13 @@ animal_list_t *animal_list__new()
     return animal_list;
 }
 
-animal_list_t *animal_list__new_default()
+void animal_list__add(animal_list_t *new_animal, animal_list_t *animal_list)
 {
-    animal_list_t *animal_list = animal_list__new();
+    if (animal_list == NULL)
+        animal_list__init(animal_list);
 
-    if (animal_list && animal_list__add_default(animal_list))
-    {
-        animal_list__delete(animal_list);
-        animal_list = NULL;
-    }
+    new_animal = animal_list__new();
 
-    return animal_list;
+    list_add(&new_animal->list, &animal_list->list);
 }
-
 

@@ -37,17 +37,16 @@ typedef struct animal
 
 typedef struct animal_list
 {
-    struct list_head entries;
+    struct list_head list;
     animal_t *animal;
 }animal_list_t;
 
 
-void animal_list__init(animal_list_t *list);
+void animal_list__init(animal_list_t *);
 
 animal_list_t *animal_list__new(void);
-animal_list_t *animal_list__new_default(void);
 
-void animal_list__delete(animal_list_t *list);
+void animal_list__add(animal_list_t *, animal_list_t *);
 
 
 #endif /* ANIMAL_LIST_H */
