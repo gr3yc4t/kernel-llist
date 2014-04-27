@@ -1,10 +1,11 @@
 #include <stdlib.h>
+#include <string.h>
 #include "animal_list.h"
 #include "utils.h"
 
 void animal_list__init(animal_list_t *animal_list)
 {
-    animal_list->animal = NULL;
+    memset(&animal_list->animal, 0, sizeof(animal_t));
     INIT_LIST_HEAD(&animal_list->list);
 }
 
@@ -105,7 +106,7 @@ animal_list_t *animal_list__new()
     if (animal_list == NULL)
         animal_list__init(animal_list);
 
-    populate_animal(animal_list->animal);
+    populate_animal(&animal_list->animal);
 
     return animal_list;
 }

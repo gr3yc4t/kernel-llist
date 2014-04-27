@@ -41,7 +41,7 @@ typedef struct animal
 typedef struct animal_list
 {
     struct list_head list;
-    animal_t *animal;
+    animal_t animal;
 }animal_list_t;
 
 
