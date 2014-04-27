@@ -51,6 +51,7 @@ void populate_animal(animal_t *);
 animal_list_t *animal_list__new(void);
 
 void animal_list__add(animal_list_t *, animal_list_t *);
+void animal_list__add_tail(animal_list_t *, animal_list_t *);
 
 
 #endif /* ANIMAL_LIST_H */

@@ -101,7 +101,7 @@ void populate_animal(animal_t *animal)
 
 animal_list_t *animal_list__new()
 {
-    animal_list_t *animal_list = malloc(sizeof(*animal_list));
+    animal_list_t *animal_list = (animal_list_t *)malloc(sizeof(animal_list_t));
 
     if (animal_list == NULL)
         animal_list__init(animal_list);
@@ -119,5 +119,15 @@ void animal_list__add(animal_list_t *new_animal, animal_list_t *animal_list)
     new_animal = animal_list__new();
 
     list_add(&new_animal->list, &animal_list->list);
+}
+
+void animal_list__add_tail(animal_list_t *new_animal, animal_list_t *animal_list)
+{
+    if (animal_list == NULL)
+        animal_list = animal_list__new();
+
+    new_animal = animal_list__new();
+
+    list_add_tail(&new_animal->list, &animal_list->list);
 }
 
