@@ -17,6 +17,13 @@
 #define LIST_POISON1 ((void *) 0x00100100 + POISON_POINTER_DELTA)
 #define LIST_POISON2 ((void *) 0x00200200 + POISON_POINTER_DELTA)
 
+/** See http://clang.llvm.org/docs/UsersManual.html#differences-between-various-standard-modes
+ *  for differences in typeof macro between gcc and llvm.
+ */
+#ifndef typeof
+#define typeof __typeof__
+#endif
+
 /** From linux/kernel.h */
 /**
 * container_of - cast a member of a structure out to the containing structure
