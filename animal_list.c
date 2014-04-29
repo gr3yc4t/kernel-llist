@@ -1,11 +1,11 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "animal_list.h"
 #include "utils.h"
 
-void animal_list__init(animal_list_t *animal_list)
+void animal_list__init_head(animal_list_t *animal_list)
 {
-    memset(&animal_list->animal, 0, sizeof(animal_t));
     INIT_LIST_HEAD(&animal_list->list);
 }
 
@@ -99,35 +99,95 @@ void populate_animal(animal_t *animal)
 
 }
 
-animal_list_t *animal_list__new()
+
+void animal_list__add(animal_list_t *animal_list)
 {
-    animal_list_t *animal_list = (animal_list_t *)malloc(sizeof(animal_list_t));
+    animal_list_t *new_animal_node;
 
-    if (animal_list == NULL)
-        animal_list__init(animal_list);
+    new_animal_node = (animal_list_t *)malloc(sizeof(animal_list_t));
+    if (new_animal_node == NULL)
+    {
+        fprintf(stderr, "Error allocating %lu bytes.\n", sizeof(animal_list_t));
+    }
 
-    populate_animal(&animal_list->animal);
+    populate_animal(&new_animal_node->animal);
 
-    return animal_list;
+    list_add(&new_animal_node->list, &animal_list->list);
 }
 
-void animal_list__add(animal_list_t *new_animal, animal_list_t *animal_list)
+void animal_list__add_animal(animal_t animal, animal_list_t *animal_list)
 {
-    if (animal_list == NULL)
-        animal_list = animal_list__new();
+    animal_list_t *new_animal_node;
 
-    new_animal = animal_list__new();
+    new_animal_node = (animal_list_t *)malloc(sizeof(animal_list_t));
+    if (new_animal_node == NULL)
+    {
+        fprintf(stderr, "Error allocating %lu bytes.\n", sizeof(animal_list_t));
+    }
 
-    list_add(&new_animal->list, &animal_list->list);
+    memcpy(&new_animal_node->animal, &animal, sizeof(animal_t));
+
+    list_add(&new_animal_node->list, &animal_list->list);
 }
 
-void animal_list__add_tail(animal_list_t *new_animal, animal_list_t *animal_list)
+
+void animal_list__add_tail(animal_list_t *animal_list)
 {
-    if (animal_list == NULL)
-        animal_list = animal_list__new();
+    animal_list_t *new_animal_node;
 
-    new_animal = animal_list__new();
+    new_animal_node = (animal_list_t *)malloc(sizeof(animal_list_t));
+    if (new_animal_node == NULL)
+    {
+        fprintf(stderr, "Error allocating %lu bytes.\n", sizeof(animal_list_t));
+    }
 
-    list_add_tail(&new_animal->list, &animal_list->list);
+    populate_animal(&new_animal_node->animal);
+
+    list_add_tail(&new_animal_node->list, &animal_list->list);
 }
+
+void animal_list__add_tail_animal(animal_t animal, animal_list_t *animal_list)
+{
+    animal_list_t *new_animal_node;
+
+    new_animal_node = (animal_list_t *)malloc(sizeof(animal_list_t));
+    if (new_animal_node == NULL)
+    {
+        fprintf(stderr, "Error allocating %lu bytes.\n", sizeof(animal_list_t));
+    }
+
+    memcpy(&new_animal_node->animal, &animal, sizeof(animal_t));
+
+    list_add_tail(&new_animal_node->list, &animal_list->list);
+}
+
+void animal_list__delete_all(animal_list_t *animal_list)
+{
+    animal_list_t *animal_node, *tmp_animal_node;
+
+    list_for_each_entry_safe(animal_node, tmp_animal_node, &animal_list->list, list)
+    {
+        list_del(&animal_node->list);
+        free(animal_node);
+    }
+}
+
+void animal_list__delete_first(animal_list_t *animal_list)
+{
+    animal_list_t *animal_node;
+
+    animal_node = list_first_entry(&animal_list->list, animal_list_t, list);
+    list_del(&animal_node->list);
+    free(animal_node);
+}
+
+void animal_list__delete_last(animal_list_t *animal_list)
+{
+    animal_list_t *animal_node;
+
+    animal_node = list_first_entry(&animal_list->list, animal_list_t, list);
+    list_del(&animal_node->list);
+    free(animal_node);
+}
+
 

@@ -45,13 +45,19 @@ typedef struct animal_list
 }animal_list_t;
 
 
-void animal_list__init(animal_list_t *);
+void animal_list__init_head(animal_list_t *);
 
 void populate_animal(animal_t *);
-animal_list_t *animal_list__new(void);
 
-void animal_list__add(animal_list_t *, animal_list_t *);
-void animal_list__add_tail(animal_list_t *, animal_list_t *);
+void animal_list__add(animal_list_t *);
+void animal_list__add_animal(animal_t, animal_list_t *);
+
+void animal_list__add_tail(animal_list_t *);
+void animal_list__add_tail_animal(animal_t, animal_list_t *);
+
+void animal_list__delete_all(animal_list_t *);
+void animal_list__delete_first(animal_list_t *);
+void animal_list__delete_last(animal_list_t *);
 
 
 #endif /* ANIMAL_LIST_H */
